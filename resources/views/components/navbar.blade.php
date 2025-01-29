@@ -10,7 +10,7 @@
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <x-nav-link href="/" :active="request()->is('/')"> Home </x-nav-link> <!-- menggunakan component nav-link -->
                         <x-nav-link href="/about" :active="request()->is('about')"> About </x-nav-link> <!-- menggunakan component nav-link -->
-                        <x-nav-link href="/blog" :active="request()->is('blog')"> Blog </x-nav-link> <!-- menggunakan component nav-link -->
+                        <x-nav-link href="/posts" :active="request()->is('posts')"> Blog </x-nav-link> <!-- menggunakan component nav-link -->
                         <x-nav-link href="/contact" :active="request()->is('contact')"> Contact </x-nav-link> <!-- menggunakan component nav-link -->
                     </div>
                 </div>
@@ -69,10 +69,10 @@
     <div x-show="isOpen" class="md:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="/" class="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md" aria-current="page">Home</a>
-            <a href="/about" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">About</a>
-            <a href="/blog" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Blog</a>
-            <a href="/contact" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Contact</a>
+            <x-nav-link href="/" :active="request()->is('/')"> Home </x-nav-link> <!-- menggunakan component nav-link -->
+            <x-nav-link href="/about" :active="request()->is('about')"> About </x-nav-link> <!-- menggunakan component nav-link -->
+            <x-nav-link href="/posts" :active="request()->is('posts')"> Blog </x-nav-link> <!-- menggunakan component nav-link -->
+            <x-nav-link href="/contact" :active="request()->is('contact')"> Contact </x-nav-link> <!-- menggunakan component nav-link -->
         </div>
         <div class="pt-4 pb-3 border-t border-gray-700">
             <div class="flex items-center px-5">
