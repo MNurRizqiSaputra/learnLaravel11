@@ -24,9 +24,7 @@ Route::get('/posts', function () {
     ]);
 });
 
-Route::get('/posts/{slug}', function ($slug) {
-    
-    $post = Post::find($slug); 
+Route::get('/posts/{post:slug}', function (Post $post) { //untuk mengambil data post berdasarkan slug menggunakan model binding
 
     return view('post', [
         'title' => 'Single Post',
