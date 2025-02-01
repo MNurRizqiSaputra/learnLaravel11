@@ -11,6 +11,7 @@
                         <x-nav-link href="/" :active="request()->is('/')"> Home </x-nav-link> <!-- menggunakan component nav-link -->
                         <x-nav-link href="/about" :active="request()->is('about')"> About </x-nav-link> <!-- menggunakan component nav-link -->
                         <x-nav-link href="/posts" :active="request()->is('posts')"> Blog </x-nav-link> <!-- menggunakan component nav-link -->
+                        <x-nav-link href="/users" :active="request()->is('users')"> User </x-nav-link> <!-- menggunakan component nav-link -->
                         <x-nav-link href="/contact" :active="request()->is('contact')"> Contact </x-nav-link> <!-- menggunakan component nav-link -->
                     </div>
                 </div>
@@ -72,6 +73,7 @@
             <x-nav-link href="/" :active="request()->is('/')"> Home </x-nav-link> <!-- menggunakan component nav-link -->
             <x-nav-link href="/about" :active="request()->is('about')"> About </x-nav-link> <!-- menggunakan component nav-link -->
             <x-nav-link href="/posts" :active="request()->is('posts')"> Blog </x-nav-link> <!-- menggunakan component nav-link -->
+            <x-nav-link href="/users" :active="request()->is('users')"> User </x-nav-link> <!-- menggunakan component nav-link -->
             <x-nav-link href="/contact" :active="request()->is('contact')"> Contact </x-nav-link> <!-- menggunakan component nav-link -->
         </div>
         <div class="pt-4 pb-3 border-t border-gray-700">
