@@ -14,9 +14,15 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            // foreign key dari user yang membuat post ke table users
             $table->foreignId('author_id')->constrained(
                 table: 'users',
                 indexName: 'posts_author_id'
+            );
+            // foreign key dari category ke table categories
+            $table->foreignId('category_id')->constrained(
+                table: 'categories',
+                indexName: 'posts_category_id'
             );
             $table->string('slug')->unique();
             $table->text('body');

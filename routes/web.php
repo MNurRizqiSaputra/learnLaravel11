@@ -1,55 +1,69 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
+// Route untuk menampilkan halaman beranda
 Route::get('/', function () {
     return view('home', [
-        'title' => 'Home Page',
+        'title' => 'Home Page',  // Mengirimkan data 'title' ke view 'home'
     ]);
 });
 
+// Route untuk menampilkan halaman about
 Route::get('/about', function () {
     return view('about', [
-        'name' => 'Putra',
-        'title' => 'About Page',
+        'name' => 'Putra',  // Mengirimkan data 'name' ke view 'about'
+        'title' => 'About Page',  // Mengirimkan data 'title' ke view 'about'
     ]);
 });
 
+// Route untuk menampilkan halaman daftar semua post
 Route::get('/posts', function () {
     return view('posts', [
-        'title' => 'Blog Page',
-        'posts' => Post::all()
+        'title' => 'Blog Page',  // Mengirimkan data 'title' ke view 'posts'
+        'posts' => Post::all()   // Mengambil semua data post dari database dan mengirimkannya ke view 'posts'
     ]);
 });
 
-Route::get('/posts/{post:slug}', function (Post $post) { //untuk mengambil data post berdasarkan slug menggunakan model binding
-
+// Route untuk menampilkan halaman post tunggal berdasarkan slug
+Route::get('/posts/{post:slug}', function (Post $post) { // Menggunakan model binding untuk mengambil post berdasarkan slug
     return view('post', [
-        'title' => 'Single Post',
-        'post' => $post
+        'title' => 'Single Post',  // Mengirimkan data 'title' ke view 'post'
+        'post' => $post  // Mengirimkan data post yang ditemukan ke view 'post'
     ]);
 });
 
-Route::get('/authors/{user}', function (User $user) { //untuk mengambil data user berdasarkan slug menggunakan model binding
-
+// Route untuk menampilkan daftar post yang ditulis oleh seorang author (user) berdasarkan username
+Route::get('/authors/{user:username}', function (User $user) { // Menggunakan model binding untuk mengambil user berdasarkan username
     return view('posts', [
-        'title' => 'Articles by: '. $user->name, //untuk menampilkankan data author
-        'posts' => $user->posts
+        'title' => count($user->posts).' Articles by: '. $user->name, // Menampilkan jumlah artikel yang ditulis oleh author
+        'posts' => $user->posts  // Mengambil semua post yang ditulis oleh user dan mengirimkannya ke view 'posts'
     ]);
 });
 
+// Route untuk menampilkan daftar post yang termasuk dalam kategori tertentu berdasarkan slug
+Route::get('/categories/{category:slug}', function (Category $category) { // Menggunakan model binding untuk mengambil kategori berdasarkan slug
+    return view('posts', [
+        'title' => 'Category Articles in: '. $category->name. '| include total: '. count($category->posts). ' articles', // Menampilkan nama kategori dan jumlah artikel dalam kategori tersebut
+        'posts' => $category->posts  // Mengambil semua post yang termasuk dalam kategori ini dan mengirimkannya ke view 'posts'
+    ]);
+});
+
+// Route untuk menampilkan daftar semua user
 Route::get('/users', function () {
     return view('users', [
-        'title' => 'Users Page',
-        'users' => User::all()
+        'title' => 'Users Page',  // Mengirimkan data 'title' ke view 'users'
+        'users' => User::all()    // Mengambil semua data user dari database dan mengirimkannya ke view 'users'
     ]);
 });
 
+// Route untuk menampilkan halaman kontak
 Route::get('/contact', function () {
     return view('contact', [
-        'title' => 'Contact Page',
+        'title' => 'Contact Page',  // Mengirimkan data 'title' ke view 'contact'
     ]);
 });

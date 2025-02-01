@@ -16,4 +16,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // untuk mengambil data post berdasarkan category/relasi dengan category
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
