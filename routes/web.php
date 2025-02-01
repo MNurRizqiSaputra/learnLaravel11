@@ -33,6 +33,14 @@ Route::get('/posts/{post:slug}', function (Post $post) { //untuk mengambil data 
     ]);
 });
 
+Route::get('/authors/{user}', function (User $user) { //untuk mengambil data user berdasarkan slug menggunakan model binding
+
+    return view('posts', [
+        'title' => 'Articles by: '. $user->name, //untuk menampilkankan data author
+        'posts' => $user->posts
+    ]);
+});
+
 Route::get('/users', function () {
     return view('users', [
         'title' => 'Users Page',
