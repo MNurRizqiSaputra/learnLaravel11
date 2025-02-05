@@ -23,9 +23,11 @@ Route::get('/about', function () {
 
 // Route untuk menampilkan halaman daftar semua post
 Route::get('/posts', function () {
+    // $posts = Post::with('author', 'category')->latest()->get(); // menggunakan eager loading untuk mengambil data post, author, dan category
+    $posts = Post::latest()->get(); // Mengambil semua data post dari database
     return view('posts', [
         'title' => 'Blog Page',  // Mengirimkan data 'title' ke view 'posts'
-        'posts' => Post::all()   // Mengambil semua data post dari database dan mengirimkannya ke view 'posts'
+        'posts' => $posts   // Mengambil semua data post dari database dan mengirimkannya ke view 'posts'
     ]);
 });
 
@@ -39,6 +41,7 @@ Route::get('/posts/{post:slug}', function (Post $post) { // Menggunakan model bi
 
 // Route untuk menampilkan daftar post yang ditulis oleh seorang author (user) berdasarkan username
 Route::get('/authors/{user:username}', function (User $user) { // Menggunakan model binding untuk mengambil user berdasarkan username
+    // $posts = $user->posts->load('category', 'author'); // menggunakan lazy eager loading untuk mengambil data post, category, dan author
     return view('posts', [
         'title' => count($user->posts).' Articles by: '. $user->name, // Menampilkan jumlah artikel yang ditulis oleh author
         'posts' => $user->posts  // Mengambil semua post yang ditulis oleh user dan mengirimkannya ke view 'posts'
@@ -47,6 +50,7 @@ Route::get('/authors/{user:username}', function (User $user) { // Menggunakan mo
 
 // Route untuk menampilkan daftar post yang termasuk dalam kategori tertentu berdasarkan slug
 Route::get('/categories/{category:slug}', function (Category $category) { // Menggunakan model binding untuk mengambil kategori berdasarkan slug
+    // $posts = $category->posts->load('category', 'author'); // menggunakan lazy eager loading untuk mengambil data post, category, dan author
     return view('posts', [
         'title' => 'Category Articles in: '. $category->name. '| include total: '. count($category->posts). ' articles', // Menampilkan nama kategori dan jumlah artikel dalam kategori tersebut
         'posts' => $category->posts  // Mengambil semua post yang termasuk dalam kategori ini dan mengirimkannya ke view 'posts'
