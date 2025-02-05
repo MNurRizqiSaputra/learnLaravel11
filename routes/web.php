@@ -39,6 +39,14 @@ Route::get('/posts/{post:slug}', function (Post $post) { // Menggunakan model bi
     ]);
 });
 
+// saya ingin membuat route baru ketika user sehabis klik single post kemudian dalam single post tersebut ada kategori post tersebut, dan user mengkliknya halaman akan beralih ke Route untuk menampilkan daftar post yang termasuk dalam kategori tertentu berdasarkan slug 
+Route::get('/categories/{category:slug}', function (Category $category) {
+    return view('posts', [
+        'title' => 'Category Articles in: '. $category->name. '| include total: '. count($category->posts). ' articles',
+        'posts' => $category->posts
+    ]);
+});
+
 // Route untuk menampilkan daftar post yang ditulis oleh seorang author (user) berdasarkan username
 Route::get('/authors/{user:username}', function (User $user) { // Menggunakan model binding untuk mengambil user berdasarkan username
     // $posts = $user->posts->load('category', 'author'); // menggunakan lazy eager loading untuk mengambil data post, category, dan author

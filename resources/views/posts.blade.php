@@ -1,26 +1,56 @@
 <x-layout>
 
     <x-slot:title>{{ $title }}</x-slot:title> <!-- Menggunakan slot title dari router -->
-    
+
     <div class="space-y-8">
-        @foreach ($posts as $post)
-        <div class="p-6 transition-all duration-300 ease-in-out transform bg-white shadow-lg rounded-2xl hover:shadow-2xl hover:scale-105">
-            <a href="/posts/{{ $post['slug'] }}" class="group">
-                <h2 class="text-3xl font-semibold text-gray-900 transition duration-200 group-hover:text-indigo-600">{{ $post['title'] }}</h2>
-            </a>
-            <div class="flex items-center mt-3 space-x-4 text-gray-600">
-                <span class="text-sm font-bold">By</span>
-                <a class="text-lg hover:text-indigo-600" href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a>
-                <span class="text-sm font-bold"># </span>
-                <a class="text-lg hover:text-indigo-600" href="categories/{{ $post->category->slug }}"> {{ $post->category->name }}</a>
-                <span>&#8226;</span>
-                <span class="text-sm">{{ $post['created_at']->diffForHumans() }}</span>
+        <div class="max-w-screen-xl px-4 py-4 mx-auto lg:py-4 lg:px-0">
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+                @foreach ($posts as $post)
+                    <article
+                        class="p-6 transition-all duration-300 ease-in-out transform bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-2xl hover:scale-105">
+                        <div class="flex items-center justify-between mb-5 text-gray-500">
+                            <a href="categories/{{ $post->category->slug }}">
+                                <span
+                                    class="bg-{{ $post->category->color }}-500 text-white text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+                                    {{ $post->category->name }}
+                                </span>
+                            </a>
+                            <span class="text-sm">{{ $post['created_at']->diffForHumans() }}</span>
+                        </div>
+                        <a href="/posts/{{ $post['slug'] }}">
+                            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-indigo-600">
+                                {{ $post['title'] }}</h2>
+                        </a>
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ Str::limit($post['body'], 120) }}
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <a href="/authors/{{ $post->author->username }}">
+                                <div class="flex items-center space-x-3">
+                                    <img class="rounded-full w-7 h-7"
+                                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                        alt="{{ $post->author->name }}" />
+                                    <span class="text-xs font-medium dark:text-white">
+                                        {{ $post->author->name }}
+                                    </span>
+                                </div>
+                            </a>
+                            <a href="/posts/{{ $post['slug'] }}"
+                                class="inline-flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:text-indigo-600 hover:underline">
+                                Read more
+                                <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
+
             </div>
-            <p class="mt-4 text-base leading-relaxed text-gray-700">{{ Str::limit($post['body'], 120) }}</p>
-            <a href="/posts/{{ $post['slug'] }}" class="inline-block mt-6 font-semibold text-indigo-600 transition duration-200 hover:text-indigo-800 group-hover:underline">Read More &raquo;</a>
         </div>
-        @endforeach
     </div>
-    
 
 </x-layout>
