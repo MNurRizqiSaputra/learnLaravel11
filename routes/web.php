@@ -24,26 +24,19 @@ Route::get('/about', function () {
 // Route untuk menampilkan halaman daftar semua post
 Route::get('/posts', function () {
     // $posts = Post::with('author', 'category')->latest()->get(); // menggunakan eager loading untuk mengambil data post, author, dan category
-    $posts = Post::latest()->get(); // Mengambil semua data post dari database
+    // $posts = Post::latest(); // Mengambil semua data post dari database
+
     return view('posts', [
         'title' => 'Blog Page',  // Mengirimkan data 'title' ke view 'posts'
-        'posts' => $posts   // Mengambil semua data post dari database dan mengirimkannya ke view 'posts'
+        'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->get()   // Mengambil semua post yang telah difilter dan mengirimkannya ke view 'posts'
     ]);
 });
 
 // Route untuk menampilkan halaman post tunggal berdasarkan slug
 Route::get('/posts/{post:slug}', function (Post $post) { // Menggunakan model binding untuk mengambil post berdasarkan slug
     return view('post', [
-        'title' => 'Single Post',  // Mengirimkan data 'title' ke view 'post'
+        'title' => 'Single Post | '. $post->title,  // Mengirimkan data 'title' ke view 'post'
         'post' => $post  // Mengirimkan data post yang ditemukan ke view 'post'
-    ]);
-});
-
-// saya ingin membuat route baru ketika user sehabis klik single post kemudian dalam single post tersebut ada kategori post tersebut, dan user mengkliknya halaman akan beralih ke Route untuk menampilkan daftar post yang termasuk dalam kategori tertentu berdasarkan slug 
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('posts', [
-        'title' => 'Category Articles in: '. $category->name. '| include total: '. count($category->posts). ' articles',
-        'posts' => $category->posts
     ]);
 });
 
