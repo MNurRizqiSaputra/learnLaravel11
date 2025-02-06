@@ -31,6 +31,8 @@
         </div>
     </div>
 
+    {{ $posts->links() }} <!-- Menampilkan pagination atas-->
+
     {{-- Post content --}}
     <div class="space-y-8">
         <div class="max-w-screen-xl px-4 py-4 mx-auto lg:py-4 lg:px-0">
@@ -95,5 +97,7 @@
             </div>
         </div>
     </div>
+
+    {{ $posts->links() }} <!-- Menampilkan pagination bawah-->
 
 </x-layout>

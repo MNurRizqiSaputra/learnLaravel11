@@ -28,7 +28,7 @@ Route::get('/posts', function () {
 
     return view('posts', [
         'title' => 'Blog Page',  // Mengirimkan data 'title' ke view 'posts'
-        'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->get()   // Mengambil semua post yang telah difilter dan mengirimkannya ke view 'posts'
+        'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(3)->withQueryString()   // Mengambil semua post yang sudah difilter dan diurutkan berdasarkan tanggal terbaru dan dipaginate menjadi 3 data per halaman
     ]);
 });
 
